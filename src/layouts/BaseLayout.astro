@@ -1,5 +1,11 @@
 ---
 const { title } = Astro.props;
+
+//this is the front matter of an Astro component
+//this is written in Javascript
+//Astro.props contains the values passed to this layout
+//it means if a page using this layout passes 'title', it is received here
+// use a layout to avoid repeating header and footer on every page
 ---
 
 <!DOCTYPE html>
@@ -22,3 +28,9 @@ const { title } = Astro.props;
     </footer>
   </body>
 </html>
+
+<!-- 
+we can write the contents in the same way as normal HTML
+in the <head> section, {title} refers to the value passed from the page
+in the <main> section, <slot />, is replaced with the contents of each page 
+-->
