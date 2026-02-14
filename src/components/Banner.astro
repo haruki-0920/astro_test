@@ -1,0 +1,63 @@
+---
+import { useTranslations } from '@i18n/ui';
+import type { Lang } from '@i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { Image } from 'astro:assets';
+
+import SignageBannerImg from '@assets/banner/signage_banner.png';
+import PosterBannerImg from '@assets/banner/poster_banner.png';
+
+
+const lang = Astro.currentLocale as Lang;
+const t = useTranslations(lang);
+const translatePath = (path: string) => getRelativeLocaleUrl(lang, path);
+---
+
+<div class="banner-wrapper">
+    <a href={translatePath("/signage-application/")}>
+        <Image class="banner" src={SignageBannerImg} alt={t({ ja: "Taki Plazaの大画面で映像を流しませんか？", en: "Would you like to display videos on the large screen at Taki Plaza?" })} />
+    </a>
+    <a href={translatePath("/poster-application/")}>
+        <Image class="banner" src={PosterBannerImg} alt={t({ ja: "掲示板でサークルやイベントを紹介しませんか？", en: "Would you like to introduce your circle or event on the bulletin board?" })} />
+    </a>
+</div>
+
+<style>
+    a {
+        text-decoration: none;
+    }
+    
+    /* モバイル用のCSS */
+    @media screen and (max-width: 768px) {
+        .banner-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .banner {
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+    }
+
+    /* デスクトップ用のCSS */
+    @media screen and (min-width: 769px) {
+        .banner-wrapper {
+            display: flex;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        .banner {
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+    }
+</style>

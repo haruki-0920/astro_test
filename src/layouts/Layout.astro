@@ -1,0 +1,102 @@
+---
+import { useTranslations, generateLocaleUrls } from '@i18n/ui';
+import type { Lang } from '@i18n/ui';
+
+import { SEO } from 'astro-seo';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+
+import GoogleAnalytics from '@components/GoogleAnalytics.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const lang = Astro.currentLocale as Lang;
+const t = useTranslations(lang);
+
+const defaultDescription = 'Taki Plaza Gardener(通称TPG)は東京科学大学(旧東京工業大学)の新たなランドマーク「Taki Plaza」で活動する学生団体です。';
+const defaultDescriptionEn = 'Taki Plaza Gardener (TPG) is a student organization active at Taki Plaza, a new landmark of the Institute of Science Tokyo (formerly Tokyo Institute of Technology).';
+
+const { title, description = defaultDescription }:Props= Astro.props;
+
+// Google FontsのNoto Sans JPを利用
+import '@fontsource-variable/noto-sans-jp';
+
+// たきぷら農園用にM PLUS Rounded 1cも利用
+import '@fontsource/m-plus-rounded-1c';
+---
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href="/favicon/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<SEO
+			title={`${title} - Taki Plaza Gardener`}
+			description={t({ ja: description, en: defaultDescriptionEn })}
+			charset="UTF-8"
+			openGraph={{
+				basic: {
+					title,
+					type: "website",
+					image: "/opengraph.png",
+				},
+			}}
+			twitter={{
+				card: 'summary_large_image',
+				site: '@tpgardener',
+				title: title,
+				description: t({ ja: description, en: defaultDescriptionEn }),
+				image: "https://tpgd.jp/opengraph.png",
+			}}
+			extend={{
+				link: [{ rel: "icon", href: "/favicon.ico" }],
+
+				meta: [
+				{
+					name: "twitter:image",
+					content: "https://tpgd.jp/opengraph.png",
+				},
+				{ name: "viewport", content: "width=device-width" },
+				{ name: "twitter:card", content: "summary_large_image" },
+				],
+			}}
+		/>
+		{/* i18n */}
+		{
+			generateLocaleUrls(Astro.url).map((props) => (
+			<link rel="alternate" hreflang={props.lang} href={props.path} />
+			))
+		}
+
+		<!-- SakuraのWebフォント利用 -->
+		<script type="text/javascript" src="//webfonts.sakura.ne.jp/js/sakurav3.js"></script>
+		<GoogleAnalytics />
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+	</body>
+</html>
+
+<style is:global>
+	html,
+	body {
+		margin: 0;
+		width: 100vw;
+		overflow-x: hidden;
+		position: relative;
+	}
+
+	body {
+		padding-top: 80px; /* ヘッダーの高さ分の余白を確保 */
+	}
+
+	a {
+		color: inherit;
+	}
+</style>
