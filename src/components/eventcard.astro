@@ -1,0 +1,28 @@
+---
+const { title, date, place, description } = Astro.props;
+---
+
+<div class="card">
+  <h3>{title}</h3>
+  <p class="meta">{date} / {place}</p>
+  <p>{description}</p>
+</div>
+
+<style>
+.card {
+  padding: 1.2rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  background: white;
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.meta {
+  font-size: .9rem;
+  color: #666;
+}
+</style>

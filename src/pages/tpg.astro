@@ -1,0 +1,49 @@
+---
+import EventCard from "../components/eventCard.astro";
+
+const events = [
+  {
+    title: "新歓説明会",
+    tag: "説明会",
+    date: "4/10 18:00〜",
+    place: "Taki Plaza B1",
+    description: "サークルの活動内容や雰囲気を紹介します。",
+    link: "/events/orientation"
+  },
+  {
+    title: "交流会",
+    tag: "交流",
+    date: "4/12 17:00〜",
+    place: "学食",
+    description: "先輩と自由に話せるイベントです。",
+    link: "/events/meetup"
+  },
+  {
+    title: "体験会",
+    tag: "体験",
+    date: "4/15 16:00〜",
+    place: "体育館",
+    description: "実際の活動を体験できます。",
+  }
+];
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+</head>
+
+<section class="events">
+  {events.map(event => (
+    <EventCard {...event} />
+  ))}
+</section>
+
+<style>
+.events {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 2rem;
+}
+</style>
